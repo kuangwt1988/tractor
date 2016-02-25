@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-// Dependencies:
-var babel = require('babel-core/register')({
-    ignore: /node_modules/
+require('babel-register')({
+    only: ['tractor/server']
 });
-var tractor = require('../server/cli/tractor');
+require('../server/cli/tractor');
