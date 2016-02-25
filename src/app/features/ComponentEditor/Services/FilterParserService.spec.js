@@ -19,8 +19,17 @@ import './FilterParserService';
 let filterParserService;
 
 describe('FilterParserService.js:', () => {
+    let astService;
+
     beforeEach(() => {
         angular.mock.module('tractor.filterParserService');
+
+        angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
+        });
 
         angular.mock.inject((
             _filterParserService_
@@ -137,6 +146,9 @@ describe('FilterParserService.js:', () => {
             let ast = {};
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
+
             let filter = filterParserService.parse(element, ast);
 
             expect(filter).to.equal(null);

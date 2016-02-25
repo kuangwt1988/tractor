@@ -3,12 +3,12 @@
 // Dependencies:
 import angular from 'angular';
 import ArgumentModel from '../../ComponentEditor/Models/ArgumentModel';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import StringToLiteralService from '../../../Core/Services/StringToLiteralService';
 
 function createExpectationModelConstructor (
     ArgumentModel,
-    astCreatorService,
+    astService,
     stringToLiteralService
 ) {
     const action = Symbol();
@@ -62,15 +62,15 @@ function createExpectationModelConstructor (
 
     function toAST () {
         let expectationArguments = this.arguments.map(argument => argument.ast);
-        let expectedResult = astCreatorService.literal(stringToLiteralService.toLiteral(this.value));
+        let expectedResult = astService.literal(stringToLiteralService.toLiteral(this.value));
 
-        let action = astCreatorService.identifier(this.action.variableName);
-        let component = astCreatorService.identifier(this.component.variableName);
-        let condition = astCreatorService.identifier(this.condition);
+        let action = astService.identifier(this.action.variableName);
+        let component = astService.identifier(this.component.variableName);
+        let condition = astService.identifier(this.condition);
 
         let template = 'expect(<%= component %>.<%= action %>(%= expectationArguments %)).to.eventually.<%= condition %>(<%= expectedResult %>); ';
 
-        return astCreatorService.template(template, { action, component, condition, expectationArguments, expectedResult }).expression;
+        return astService.template(template, { action, component, condition, expectationArguments, expectedResult }).expression;
     }
 
     function parseArguments () {
@@ -84,7 +84,7 @@ function createExpectationModelConstructor (
 
 export default angular.module('tractor.expectationModel', [
     ArgumentModel.name,
-    ASTCreatorService.name,
+    ASTService.name,
     StringToLiteralService.name
 ])
 .factory('ExpectationModel', createExpectationModelConstructor);

@@ -12,45 +12,45 @@ import chai from 'chai';
 const expect = chai.expect;
 
 // Testing:
-import './ASTCreatorService';
-let astCreatorService;
+import './ASTService';
+let astService;
 
-describe('ASTCreatorService.js:', () => {
+describe('ASTService.js:', () => {
     beforeEach(() => {
-        angular.mock.module('tractor.astCreatorService');
+        angular.mock.module('tractor.astService');
 
-        angular.mock.inject((_astCreatorService_) => {
-            astCreatorService = _astCreatorService_;
+        angular.mock.inject((_astService_) => {
+            astService = _astService_;
         });
     });
 
-    describe('ASTCreatorService.expressionStatement:', () => {
+    describe('ASTervice.expressionStatement:', () => {
         it('should create a new `expressionStatement` object:', () => {
             let expression = {};
 
-            let expressionStatement = astCreatorService.expressionStatement(expression);
+            let expressionStatement = astService.expressionStatement(expression);
 
             expect(expressionStatement.type).to.equal('ExpressionStatement');
             expect(expressionStatement.expression).to.equal(expression);
         });
     });
 
-    describe('ASTCreatorService.identifier:', () => {
+    describe('ASTService.identifier:', () => {
         it('should create a new `identifier` object:', () => {
             let name = {};
 
-            let identifier = astCreatorService.identifier(name);
+            let identifier = astService.identifier(name);
 
             expect(identifier.type).to.equal('Identifier');
             expect(identifier.name).to.equal(name);
         });
     });
 
-    describe('ASTCreatorService.literal:', () => {
+    describe('ASTService.literal:', () => {
         it('should create a new `literal` object:', () => {
             let value = {};
 
-            let literal = astCreatorService.literal(value);
+            let literal = astService.literal(value);
 
             expect(literal.type).to.equal('Literal');
             expect(literal.value).to.equal(value);
@@ -59,7 +59,7 @@ describe('ASTCreatorService.js:', () => {
         it('should have the `raw` value if the literal is a RegExp:', () => {
             let value = /RegExp/;
 
-            let literal = astCreatorService.literal(value);
+            let literal = astService.literal(value);
 
             expect(literal.raw).to.equal('/RegExp/');
         });

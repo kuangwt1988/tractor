@@ -20,6 +20,7 @@ let interactionParserService;
 
 describe('InteractionParserService.js:', () => {
     let argumentParserService;
+    let astService;
 
     beforeEach(() => {
         angular.mock.module('tractor.interactionParserService');
@@ -28,6 +29,10 @@ describe('InteractionParserService.js:', () => {
             $provide.factory('argumentParserService', () => {
                 argumentParserService = {};
                 return argumentParserService;
+            });
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
             });
         });
 
@@ -474,6 +479,9 @@ describe('InteractionParserService.js:', () => {
             let ast = {};
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
+
             let interaction = interactionParserService.parse(action, ast);
 
             expect(interaction).to.equal(null);

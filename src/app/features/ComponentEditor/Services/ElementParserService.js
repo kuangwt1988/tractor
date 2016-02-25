@@ -5,14 +5,17 @@ import assert from 'assert';
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import ElementModel from '../Models/ElementModel';
 import FilterParserService from '../Services/FilterParserService';
 
 class ElementParserService {
     constructor (
+        astService,
         ElementModel,
         filterParserService
     ) {
+        this.astService = astService;
         this.ElementModel = ElementModel;
         this.filterParserService = filterParserService;
     }
@@ -33,7 +36,7 @@ class ElementParserService {
 
             return element;
         } catch (e) {
-            console.warn('Invalid element:', ast)
+            console.warn('Invalid element:', this.astService.toJS(ast))
             return null;
         }
     }
@@ -123,6 +126,7 @@ function parseGet (component, element, parseState) {
 }
 
 export default angular.module('tractor.elementParserService', [
+    ASTService.name,
     ElementModel.name,
     FilterParserService.name
 ])

@@ -6,8 +6,9 @@ import isRegExp from 'lodash.isregexp';
 // Dependencies:
 import angular from 'angular';
 import estemplate from 'estemplate';
+import escodegen from 'escodegen';
 
-class ASTCreatorService {
+class ASTService {
     file (expression, meta) {
         return program([this.expressionStatement(expression)], [blockComment(meta)]);
     }
@@ -46,6 +47,10 @@ class ASTCreatorService {
         }
         return lit;
     }
+
+    toJS (ast) {
+        return escodegen.generate(ast);
+    }
 }
 
 function program (body = [], comments = []) {
@@ -63,5 +68,5 @@ function blockComment (value) {
     };
 }
 
-export default angular.module('tractor.astCreatorService', [])
-.service('astCreatorService', ASTCreatorService);
+export default angular.module('tractor.astService', [])
+.service('astService', ASTService);

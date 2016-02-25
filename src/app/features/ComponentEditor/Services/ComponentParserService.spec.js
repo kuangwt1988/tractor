@@ -20,6 +20,7 @@ let componentParserService;
 
 describe('ComponentParserService.js:', () => {
     let actionParserService;
+    let astService;
     let elementParserService;
     let persistentStateService;
 
@@ -30,6 +31,10 @@ describe('ComponentParserService.js:', () => {
             $provide.factory('actionParserService', () => {
                 actionParserService = {};
                 return actionParserService;
+            });
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
             });
             $provide.factory('elementParserService', () => {
                 elementParserService = {};
@@ -265,6 +270,8 @@ describe('ComponentParserService.js:', () => {
             sinon.stub(elementParserService, 'parse').throws();
             actionParserService.parse = angular.noop;
             sinon.stub(actionParserService, 'parse').throws();
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
 
             let component = componentParserService.parse(componentFile);
 

@@ -19,8 +19,17 @@ import './ArgumentParserService';
 let argumentParserService;
 
 describe('ArgumentParserService.js:', () => {
+    let astService;
+
     beforeEach(() => {
         angular.mock.module('tractor.actionParserService');
+
+        angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
+        });
 
         angular.mock.inject((
             _argumentParserService_
@@ -60,6 +69,8 @@ describe('ArgumentParserService.js:', () => {
             let method = {};
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
 
             let argumentModel = argumentParserService.parse(method, argument, ast);
 

@@ -19,10 +19,18 @@ import './ExpectationParserService';
 let expectationParserService;
 
 describe('ExpectationParserService.js:', () => {
+    let astService;
     let ExpectationModel;
 
     beforeEach(() => {
         angular.mock.module('tractor.expectationParserService');
+
+        angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
+        });
 
         angular.mock.inject((
             _expectationParserService_,
@@ -349,6 +357,8 @@ describe('ExpectationParserService.js:', () => {
             let ast = {};
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
 
             let expectationModel = expectationParserService.parse(step, ast);
 

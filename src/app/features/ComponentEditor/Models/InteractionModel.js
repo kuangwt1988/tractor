@@ -2,7 +2,7 @@
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import MethodModel from './MethodModel';
 
 // Symbols:
@@ -12,7 +12,7 @@ const method = Symbol();
 const methodInstance = Symbol();
 
 function createInteractionModelConstructor (
-    astCreatorService,
+    astService,
     MethodModel
 ) {
     return class InteractionModel {
@@ -63,7 +63,7 @@ function createInteractionModelConstructor (
         }
 
         let interaction = interactionAST.call(this);
-        return astCreatorService.expression(template, { interaction });
+        return astService.expression(template, { interaction });
     }
 
     function interactionAST () {
@@ -73,16 +73,16 @@ function createInteractionModelConstructor (
         }
         template += '.<%= method %>(%= argumentValues %);';
 
-        let element = astCreatorService.identifier(this.element.variableName);
-        let method = astCreatorService.identifier(this.methodInstance.name);
+        let element = astService.identifier(this.element.variableName);
+        let method = astService.identifier(this.methodInstance.name);
         let argumentValues = this.methodInstance.arguments.map(argument => argument.ast);
 
-        return astCreatorService.expression(template, { element, method, argumentValues });
+        return astService.expression(template, { element, method, argumentValues });
     }
 }
 
 export default angular.module('tractor.interactionModel', [
-    ASTCreatorService.name,
+    ASTService.name,
     MethodModel.name
 ])
 .factory('InteractionModel', createInteractionModelConstructor);

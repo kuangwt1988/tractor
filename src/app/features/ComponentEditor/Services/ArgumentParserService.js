@@ -6,12 +6,15 @@ import assert from 'assert';
 // Dependencies:
 import angular from 'angular';
 import ArgumentModel from '../Models/ArgumentModel';
+import ASTService from '../../../Core/Services/ASTService';
 
 class ArgumentParserService {
     constructor (
-        ArgumentModel
+        ArgumentModel,
+        astService
     ) {
-        this.ArgumentModel = ArgumentModel
+        this.ArgumentModel = ArgumentModel;
+        this.astService = astService;
     }
 
     parse (method, argument, ast) {
@@ -21,7 +24,7 @@ class ArgumentParserService {
 
             return argument;
         } catch (e) {
-            console.warn('Invalid argument:', ast);
+            console.warn('Invalid argument:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -33,6 +36,7 @@ function parseValue (argument, ast) {
 }
 
 export default angular.module('argumentParserService', [
-    ArgumentModel.name
+    ArgumentModel.name,
+    ASTService.name
 ])
 .service('argumentParserService', ArgumentParserService);

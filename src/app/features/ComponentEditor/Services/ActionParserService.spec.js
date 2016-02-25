@@ -19,6 +19,7 @@ import './ActionParserService';
 let actionParserService;
 
 describe('ActionParserService.js:', () => {
+    let astService;
     let interactionParserService;
     let parameterParserService;
 
@@ -26,6 +27,10 @@ describe('ActionParserService.js:', () => {
         angular.mock.module('tractor.actionParserService');
 
         angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
             $provide.factory('interactionParserService', () => {
                 interactionParserService = {};
                 return interactionParserService;
@@ -153,6 +158,8 @@ describe('ActionParserService.js:', () => {
             let meta = {};
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
             interactionParserService.parse = angular.noop;
             sinon.stub(interactionParserService, 'parse').throws();
 

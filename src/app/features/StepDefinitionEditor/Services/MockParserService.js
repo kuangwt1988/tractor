@@ -5,12 +5,15 @@ import assert from 'assert';
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import MockModel from '../Models/MockModel';
 
 class MockParserService {
     constructor (
+        astService,
         MockModel
     ) {
+        this.astService = astService;
         this.MockModel = MockModel;
     }
 
@@ -28,7 +31,7 @@ class MockParserService {
 
             return mock;
         } catch (e) {
-            console.warn('Invalid mock:', ast);
+            console.warn('Invalid mock:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -78,6 +81,7 @@ function parsePassThrough (mock, mockCallExpression) {
 }
 
 export default angular.module('tractor.mockParserService', [
+    ASTService.name,
     MockModel.name
 ])
 .service('mockParserService', MockParserService);

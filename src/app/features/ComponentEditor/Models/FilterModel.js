@@ -5,7 +5,7 @@ import dedent from 'dedent';
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import StringToLiteralService from '../../../Core/Services/StringToLiteralService';
 
 // Symbols:
@@ -13,7 +13,7 @@ const element = Symbol();
 const types = Symbol();
 
 function createFilterModelConstructor (
-    astCreatorService,
+    astService,
     stringToLiteralService
 ) {
     return class FilterModel {
@@ -56,11 +56,11 @@ function createFilterModelConstructor (
     }
 
     function toNestedAST () {
-        let locator = astCreatorService.literal(this.locator);
+        let locator = astService.literal(this.locator);
 
         let number = stringToLiteralService.toLiteral(locator.value);
         if (angular.isNumber(number)) {
-            return astCreatorService.literal(number);
+            return astService.literal(number);
         } else {
             let template = dedent(`
                 (function (element) {
@@ -69,27 +69,27 @@ function createFilterModelConstructor (
                     });
                 });
             `);
-            return astCreatorService.expression(template, { locator });
+            return astService.expression(template, { locator });
         }
     }
 
     function toSingleAST () {
-        let locator = astCreatorService.literal(this.locator);
-        let type = astCreatorService.identifier(this.type);
+        let locator = astService.literal(this.locator);
+        let type = astService.identifier(this.type);
 
         let template = '';
         if (this.isText) {
             template += `by.cssContainingText('*', <%= locator %>)`;
-            return astCreatorService.expression(template, { locator });
+            return astService.expression(template, { locator });
         } else {
             template += 'by.<%= type %>(<%= locator %>)';
-            return astCreatorService.expression(template, { type, locator });
+            return astService.expression(template, { type, locator });
         }
     }
 }
 
 export default angular.module('tractor.filterModel', [
-    ASTCreatorService.name,
+    ASTService.name,
     StringToLiteralService.name
 ])
 .factory('FilterModel', createFilterModelConstructor);

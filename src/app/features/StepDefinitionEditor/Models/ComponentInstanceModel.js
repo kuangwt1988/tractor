@@ -6,10 +6,10 @@ import path from 'path';
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 
 function createComponentInstanceModelConstructor (
-    astCreatorService
+    astService
 ) {
     const component = Symbol();
     const stepDefinition = Symbol();
@@ -55,16 +55,16 @@ function createComponentInstanceModelConstructor (
         let stepDefinitionPath = this.stepDefinition.path.replace(/^[A-Z]:\\/, '').replace(/\\/g, '/');
         let componentPath = this.component.path.replace(/^[A-Z]:\\/, '').replace(/\\/g, '/');
         let relativePath = path.relative(path.dirname(stepDefinitionPath), componentPath);
-        relativePath = astCreatorService.literal(relativePath);
+        relativePath = astService.literal(relativePath);
 
-        let constructor = astCreatorService.identifier(this.component.variableName);
-        let name = astCreatorService.identifier(this.variableName);
+        let constructor = astService.identifier(this.component.variableName);
+        let name = astService.identifier(this.variableName);
 
-        return astCreatorService.template(template, { constructor, relativePath, name });
+        return astService.template(template, { constructor, relativePath, name });
     }
 }
 
 export default angular.module('tractor.componentInstanceModel', [
-    ASTCreatorService.name
+    ASTService.name
 ])
 .factory('ComponentInstanceModel', createComponentInstanceModelConstructor);

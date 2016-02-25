@@ -19,10 +19,18 @@ import './MockParserService';
 let mockParserService;
 
 describe('MockParserService.js:', () => {
+    let astService;
     let MockModel;
 
     beforeEach(() => {
         angular.mock.module('tractor.mockParserService');
+
+        angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
+        });
 
         angular.mock.inject((
             _mockParserService_,
@@ -224,6 +232,8 @@ describe('MockParserService.js:', () => {
             };
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
 
             let mockModel = mockParserService.parse(step, ast);
 

@@ -5,15 +5,18 @@ import assert from 'assert';
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import ArgumentParserService from './ArgumentParserService';
 import InteractionModel from '../Models/InteractionModel';
 
 class InteractionParserService {
     constructor (
         argumentParserService,
+        astService,
         InteractionModel
     ) {
         this.argumentParserService = argumentParserService;
+        this.astService = astService;
         this.InteractionModel = InteractionModel;
     }
 
@@ -29,7 +32,7 @@ class InteractionParserService {
 
             return interaction;
         } catch (e) {
-            console.warn('Invalid interaction:', ast);
+            console.warn('Invalid interaction:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -118,6 +121,7 @@ function parseInteraction (action, interaction, parseState) {
 
 export default angular.module('tractor.interactionParserService', [
     ArgumentParserService.name,
+    ASTService.name,
     InteractionModel.name
 ])
 .service('interactionParserService', InteractionParserService);

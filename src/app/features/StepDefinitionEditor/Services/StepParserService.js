@@ -5,6 +5,7 @@ import assert from 'assert';
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import ExpectationParserService from '../Services/ExpectationParserService';
 import MockParserService from '../Services/MockParserService';
 import StepModel from '../Models/StepModel';
@@ -12,11 +13,13 @@ import TaskParserService from '../Services/TaskParserService';
 
 class StepParserService {
     constructor (
+        astService,
         expectationParserService,
         mockParserService,
         StepModel,
         taskParserService
     ) {
+        this.astService = astService;
         this.expectationParserService = expectationParserService;
         this.mockParserService = mockParserService;
         this.StepModel = StepModel;
@@ -38,7 +41,7 @@ class StepParserService {
 
             return step;
         } catch (e) {
-            console.warn('Invalid step:', ast);
+            console.warn('Invalid step:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -117,6 +120,7 @@ function parseTaskDone (step, statement) {
 }
 
 export default angular.module('tractor.stepParserService', [
+    ASTService.name,
     ExpectationParserService.name,
     MockParserService.name,
     StepModel.name,

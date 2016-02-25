@@ -5,7 +5,7 @@ import changecase from 'change-case';
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import ElementMethods from './ElementMethods';
 import FilterModel from './FilterModel';
 import StringToLiteralService from '../../../Core/Services/StringToLiteralService';
@@ -16,7 +16,7 @@ const filters = Symbol();
 const sortableFilters = Symbol();
 
 function createElementModelConstructor (
-    astCreatorService,
+    astService,
     FilterModel,
     stringToLiteralService
 ) {
@@ -94,12 +94,12 @@ function createElementModelConstructor (
     };
 
     function toAST () {
-        let element = astCreatorService.identifier(this.variableName);
+        let element = astService.identifier(this.variableName);
         let filters = filtersAST.call(this);
 
         let template = 'this.<%= element %> = <%= filters %>;';
 
-        return astCreatorService.expression(template, { element, filters });
+        return astService.expression(template, { element, filters });
     }
 
     function filtersAST () {
@@ -118,7 +118,7 @@ function createElementModelConstructor (
             return filter;
         }, {});
 
-        return astCreatorService.expression(template, fragments);
+        return astService.expression(template, fragments);
     }
 
     function filterAST (filter, filterTemplate) {
@@ -157,7 +157,7 @@ function createElementModelConstructor (
 }
 
 export default angular.module('tractor.elementModel', [
-    ASTCreatorService.name,
+    ASTService.name,
     FilterModel.name,
     StringToLiteralService.name
 ])

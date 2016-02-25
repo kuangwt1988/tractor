@@ -6,7 +6,7 @@ import dedent from 'dedent';
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import InteractionModel from './InteractionModel';
 import ParameterModel from './ParameterModel';
 
@@ -16,7 +16,7 @@ const interactions = Symbol();
 const parameters = Symbol();
 
 function createActionModelConstructor (
-    astCreatorService,
+    astService,
     InteractionModel,
     ParameterModel
 ) {
@@ -83,8 +83,8 @@ function createActionModelConstructor (
     }
 
     function toAST () {
-        let component = astCreatorService.identifier(this.component.variableName);
-        let action = astCreatorService.identifier(this.variableName);
+        let component = astService.identifier(this.component.variableName);
+        let action = astService.identifier(this.variableName);
         let parameters = this.parameters.map(parameter => parameter.ast);
         let interactions = interactionsAST.call(this);
 
@@ -97,7 +97,7 @@ function createActionModelConstructor (
         }
         template += '};';
 
-        return astCreatorService.expression(template, { component, action, parameters, interactions });
+        return astService.expression(template, { component, action, parameters, interactions });
     }
 
     function interactionsAST () {
@@ -121,14 +121,14 @@ function createActionModelConstructor (
 
             let previousResult = previousInteractionResult(previousInteraction);
             if (previousResult) {
-                let parameter = astCreatorService.identifier(previousResult);
+                let parameter = astService.identifier(previousResult);
                 fragments[`parameter${index}`].push(parameter);
             }
 
             return interaction;
         }, {});
 
-        return astCreatorService.expression(template, fragments);
+        return astService.expression(template, fragments);
     }
 
     function previousInteractionResult (previous) {
@@ -140,7 +140,7 @@ function createActionModelConstructor (
 }
 
 export default angular.module('tractor.actionModel', [
-    ASTCreatorService.name,
+    ASTService.name,
     InteractionModel.name,
     ParameterModel.name
 ])

@@ -17,10 +17,18 @@ import './TaskParserService';
 let taskParserService;
 
 describe('TaskParserService.js:', () => {
+    let astService;
     let TaskModel;
 
     beforeEach(() => {
         angular.mock.module('tractor.taskParserService');
+
+        angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
+        });
 
         angular.mock.inject((
             _TaskModel_,
@@ -244,7 +252,9 @@ describe('TaskParserService.js:', () => {
             let ast = {};
 
             sinon.stub(console, 'warn');
-
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
+            
             let taskModel = taskParserService.parse(step, ast);
 
             expect(taskModel).to.equal(null);
@@ -272,6 +282,8 @@ describe('TaskParserService.js:', () => {
             };
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
 
             let taskModel = taskParserService.parse(step, ast);
 

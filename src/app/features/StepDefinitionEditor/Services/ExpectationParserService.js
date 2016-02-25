@@ -2,12 +2,15 @@
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import ExpectationModel from '../Models/ExpectationModel';
 
 class ExpectationParserService {
     constructor (
+        astService,
         ExpectationModel
     ) {
+        this.astService = astService;
         this.ExpectationModel = ExpectationModel;
     }
 
@@ -26,7 +29,7 @@ class ExpectationParserService {
 
             return expectation;
         } catch (e) {
-            console.warn('Invalid expectation:', ast);
+            console.warn('Invalid expectation:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -51,6 +54,7 @@ function parseArguments (expectation, expectationCallExpression) {
 }
 
 export default angular.module('tractor.expectationParserService', [
+    ASTService.name,
     ExpectationModel.name
 ])
 .service('expectationParserService', ExpectationParserService);

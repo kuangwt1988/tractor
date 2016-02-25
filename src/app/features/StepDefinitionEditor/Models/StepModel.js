@@ -2,13 +2,13 @@
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import ExpectationModel from './ExpectationModel';
 import MockModel from './MockModel';
 import TaskModel from './TaskModel';
 
 function createStepModelConstructor (
-    astCreatorService,
+    astService,
     ExpectationModel,
     TaskModel,
     MockModel
@@ -102,14 +102,14 @@ function createStepModelConstructor (
         }
         template += '});';
 
-        let type = astCreatorService.identifier(this.type);
-        let regex = astCreatorService.literal(this.regex);
-        return astCreatorService.template(template, { type, regex, mocks, tasks, expectations });
+        let type = astService.identifier(this.type);
+        let regex = astService.literal(this.regex);
+        return astService.template(template, { type, regex, mocks, tasks, expectations });
     }
 }
 
 export default angular.module('tractor.stepModel', [
-    ASTCreatorService.name,
+    ASTService.name,
     ExpectationModel.name,
     MockModel.name,
     TaskModel.name

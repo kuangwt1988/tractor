@@ -5,14 +5,17 @@ import assert from 'assert';
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import StepParserService from '../Services/StepParserService';
 import StepDefinitionModel from '../Models/StepDefinitionModel';
 
 class StepDefinitionParserService {
     constructor (
+        astService,
         stepParserService,
         StepDefinitionModel
     ) {
+        this.astService = astService;
         this.stepParserService = stepParserService;
         this.StepDefinitionModel = StepDefinitionModel;
     }
@@ -38,7 +41,7 @@ class StepDefinitionParserService {
 
             return stepDefinition;
         } catch (e) {
-            console.warn('Invalid step definition:', stepDefinitionFile.ast);
+            console.warn('Invalid step definition:', this.astService.toJS(stepDefinitionFile.ast));
             return null;
         }
     }
@@ -83,6 +86,7 @@ function parseStep (stepDefinition, statement) {
 }
 
 export default angular.module('tractor.stepDefinitionParserService', [
+    ASTService.name,
     StepParserService.name,
     StepDefinitionModel.name
 ])

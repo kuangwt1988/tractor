@@ -6,6 +6,7 @@ import assert from 'assert';
 // Dependencies:
 import angular from 'angular';
 import ActionParserService from '../Services/ActionParserService';
+import ASTService from '../../../Core/Services/ASTService';
 import ComponentModel from '../Models/ComponentModel';
 import ElementParserService from '../Services/ElementParserService';
 import PersistentStateService from '../../../Core/Services/PersistentStateService';
@@ -13,11 +14,13 @@ import PersistentStateService from '../../../Core/Services/PersistentStateServic
 class ComponentParserService {
     constructor (
         actionParserService,
+        astService,
         ComponentModel,
         elementParserService,
         persistentStateService
     ) {
         this.actionParserService = actionParserService;
+        this.astService = astService;
         this.ComponentModel = ComponentModel;
         this.elementParserService = elementParserService;
         this.persistentStateService = persistentStateService;
@@ -45,7 +48,7 @@ class ComponentParserService {
 
             return component;
         } catch (e) {
-            console.warn('Invalid component:', ast);
+            console.warn('Invalid component:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -100,6 +103,7 @@ function parseReturnStatement (component, statement) {
 
 export default angular.module('tractor.componentParserService', [
     ActionParserService.name,
+    ASTService.name,
     ComponentModel.name,
     ElementParserService.name,
     PersistentStateService.name

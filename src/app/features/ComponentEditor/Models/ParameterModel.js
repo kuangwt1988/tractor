@@ -5,13 +5,13 @@ import changecase from 'change-case';
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 
 // Symbols:
 const action = Symbol();
 
 function createParameterModelConstructor (
-    astCreatorService
+    astService
 ) {
     return class ParameterModel {
         constructor (_action) {
@@ -47,11 +47,11 @@ function createParameterModelConstructor (
     }
 
     function toAST () {
-        return astCreatorService.identifier(this.variableName);
+        return astService.identifier(this.variableName);
     }
 }
 
 export default angular.module('tractor.parameterModel', [
-    ASTCreatorService.name
+    ASTService.name
 ])
 .factory('ParameterModel', createParameterModelConstructor);

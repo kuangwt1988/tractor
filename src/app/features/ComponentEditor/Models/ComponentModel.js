@@ -7,7 +7,7 @@ import dedent from 'dedent';
 // Dependencies:
 import angular from 'angular';
 import ActionModel from './ActionModel';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import BrowserModel from './BrowserModel';
 import ElementModel from './ElementModel';
 
@@ -19,7 +19,7 @@ const elements = Symbol();
 const options = Symbol();
 
 function createComponentModelConstructor (
-    astCreatorService,
+    astService,
     BrowserModel,
     ElementModel,
     ActionModel
@@ -115,9 +115,9 @@ function createComponentModelConstructor (
     }
 
     function toAST () {
-        let component = astCreatorService.identifier(this.variableName);
-        let elements = this.domElements.map(element => astCreatorService.expressionStatement(element.ast));
-        let actions = this.actions.map(action => astCreatorService.expressionStatement(action.ast));
+        let component = astService.identifier(this.variableName);
+        let elements = this.domElements.map(element => astService.expressionStatement(element.ast));
+        let actions = this.actions.map(action => astService.expressionStatement(action.ast));
 
         let template = dedent(`
             module.exports = (function () {
@@ -129,7 +129,7 @@ function createComponentModelConstructor (
             })();
         `);
 
-        return astCreatorService.file(astCreatorService.expression(template, {
+        return astService.file(astService.expression(template, {
             component,
             elements,
             actions
@@ -139,7 +139,7 @@ function createComponentModelConstructor (
 
 export default angular.module('tractor.componentModel', [
     ActionModel.name,
-    ASTCreatorService.name,
+    ASTService.name,
     BrowserModel.name,
     ElementModel.name
 ])

@@ -17,6 +17,7 @@ import './StepParserService';
 let stepParserService;
 
 describe('StepParserService.js:', () => {
+    let astService;
     let expectationParserService;
     let mockParserService;
     let StepModel;
@@ -26,6 +27,11 @@ describe('StepParserService.js:', () => {
         angular.mock.module('tractor.stepParserService');
 
         angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
+
             $provide.factory('expectationParserService', () => {
                 expectationParserService = {};
                 return expectationParserService;
@@ -319,6 +325,8 @@ describe('StepParserService.js:', () => {
             let stepDefinition = {};
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
 
             let stepModel = stepParserService.parse(stepDefinition, ast);
 

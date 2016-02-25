@@ -3,10 +3,10 @@
 // Dependencies:
 import angular from 'angular';
 import ArgumentModel from '../../ComponentEditor/Models/ArgumentModel';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 
 function createTaskModelConstructor (
-    astCreatorService,
+    astService,
     ArgumentModel
 ) {
     const action = Symbol();
@@ -55,11 +55,11 @@ function createTaskModelConstructor (
     function toAST () {
         let template = '<%= component %>.<%= action %>(%= taskArguments %)';
 
-        let action = astCreatorService.identifier(this.action.variableName);
-        let component = astCreatorService.identifier(this.component.variableName);
+        let action = astService.identifier(this.action.variableName);
+        let component = astService.identifier(this.component.variableName);
         let taskArguments = this.arguments.map(argument => argument.ast);
 
-        return astCreatorService.template(template, { action, component, taskArguments }).expression;
+        return astService.template(template, { action, component, taskArguments }).expression;
     }
 
     function parseArguments () {
@@ -74,6 +74,6 @@ function createTaskModelConstructor (
 
 export default angular.module('tractor.taskModel', [
     ArgumentModel.name,
-    ASTCreatorService.name
+    ASTService.name
 ])
 .factory('TaskModel', createTaskModelConstructor);

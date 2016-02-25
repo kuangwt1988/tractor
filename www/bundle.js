@@ -9,10 +9,10 @@ System.registerDynamic("app/features/StepDefinitionEditor/StepDefinitionEditor.h
   return module.exports;
 });
 
-System.register('app/features/StepDefinitionEditor/Models/MockDataInstanceModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:jspm/nodelibs-path@0.1.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, changecase, path, angular, ASTCreatorService;
+System.register('app/features/StepDefinitionEditor/Models/MockDataInstanceModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:jspm/nodelibs-path@0.1.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, changecase, path, angular, ASTService;
 
-    function createMockDataInstanceModelConstructor(astCreatorService) {
+    function createMockDataInstanceModelConstructor(astService) {
         var mockData = _Symbol();
         var stepDefinition = _Symbol();
 
@@ -66,12 +66,12 @@ System.register('app/features/StepDefinitionEditor/Models/MockDataInstanceModel.
             var stepDefinitionPath = this.stepDefinition.path.replace(/\\/g, '/');
             var mockDataPath = this.mockData.path.replace(/\\/g, '/');
             var relativePath = path.relative(path.dirname(stepDefinitionPath), mockDataPath);
-            relativePath = astCreatorService.literal(relativePath);
-            var name = astCreatorService.identifier(this.variableName);
+            relativePath = astService.literal(relativePath);
+            var name = astService.identifier(this.variableName);
 
             var template = 'var <%= name %> = require(<%= relativePath %>); ';
 
-            return astCreatorService.template(template, { name: name, relativePath: relativePath });
+            return astService.template(template, { name: name, relativePath: relativePath });
         }
     }
 
@@ -88,8 +88,8 @@ System.register('app/features/StepDefinitionEditor/Models/MockDataInstanceModel.
             path = _githubJspmNodelibsPath010['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }],
         execute: function () {
 
@@ -97,14 +97,14 @@ System.register('app/features/StepDefinitionEditor/Models/MockDataInstanceModel.
 
             // Utilities:
             'use strict';
-            _export('default', angular.module('tractor.mockDataInstanceModel', [ASTCreatorService.name]).factory('MockDataInstanceModel', createMockDataInstanceModelConstructor));
+            _export('default', angular.module('tractor.mockDataInstanceModel', [ASTService.name]).factory('MockDataInstanceModel', createMockDataInstanceModelConstructor));
         }
     };
 });
-System.register('app/features/StepDefinitionEditor/Models/ComponentInstanceModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:jspm/nodelibs-path@0.1.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, changecase, path, angular, ASTCreatorService;
+System.register('app/features/StepDefinitionEditor/Models/ComponentInstanceModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:jspm/nodelibs-path@0.1.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, changecase, path, angular, ASTService;
 
-    function createComponentInstanceModelConstructor(astCreatorService) {
+    function createComponentInstanceModelConstructor(astService) {
         var component = _Symbol();
         var stepDefinition = _Symbol();
 
@@ -161,12 +161,12 @@ System.register('app/features/StepDefinitionEditor/Models/ComponentInstanceModel
             var stepDefinitionPath = this.stepDefinition.path.replace(/^[A-Z]:\\/, '').replace(/\\/g, '/');
             var componentPath = this.component.path.replace(/^[A-Z]:\\/, '').replace(/\\/g, '/');
             var relativePath = path.relative(path.dirname(stepDefinitionPath), componentPath);
-            relativePath = astCreatorService.literal(relativePath);
+            relativePath = astService.literal(relativePath);
 
-            var constructor = astCreatorService.identifier(this.component.variableName);
-            var name = astCreatorService.identifier(this.variableName);
+            var constructor = astService.identifier(this.component.variableName);
+            var name = astService.identifier(this.variableName);
 
-            return astCreatorService.template(template, { constructor: constructor, relativePath: relativePath, name: name });
+            return astService.template(template, { constructor: constructor, relativePath: relativePath, name: name });
         }
     }
 
@@ -183,8 +183,8 @@ System.register('app/features/StepDefinitionEditor/Models/ComponentInstanceModel
             path = _githubJspmNodelibsPath010['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }],
         execute: function () {
 
@@ -192,14 +192,14 @@ System.register('app/features/StepDefinitionEditor/Models/ComponentInstanceModel
 
             // Utilities:
             'use strict';
-            _export('default', angular.module('tractor.componentInstanceModel', [ASTCreatorService.name]).factory('ComponentInstanceModel', createComponentInstanceModelConstructor));
+            _export('default', angular.module('tractor.componentInstanceModel', [ASTService.name]).factory('ComponentInstanceModel', createComponentInstanceModelConstructor));
         }
     };
 });
-System.register('app/features/StepDefinitionEditor/Models/StepDefinitionModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js', 'app/features/StepDefinitionEditor/Models/ComponentInstanceModel.js', 'app/features/StepDefinitionEditor/Models/MockDataInstanceModel.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, angular, ASTCreatorService, ComponentInstanceModel, MockDataInstanceModel;
+System.register('app/features/StepDefinitionEditor/Models/StepDefinitionModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js', 'app/features/StepDefinitionEditor/Models/ComponentInstanceModel.js', 'app/features/StepDefinitionEditor/Models/MockDataInstanceModel.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, angular, ASTService, ComponentInstanceModel, MockDataInstanceModel;
 
-    function createStepDefinitionModelConstructor(astCreatorService, componentFileService, ComponentInstanceModel, mockDataFileService, MockDataInstanceModel) {
+    function createStepDefinitionModelConstructor(astService, componentFileService, ComponentInstanceModel, mockDataFileService, MockDataInstanceModel) {
         var components = _Symbol();
         var componentInstances = _Symbol();
         var mockData = _Symbol();
@@ -339,7 +339,7 @@ System.register('app/features/StepDefinitionEditor/Models/StepDefinitionModel.js
             template += '};';
 
             var step = this.step.ast;
-            return astCreatorService.file(astCreatorService.expression(template, { components: components, mockData: mockData, step: step }), this.meta);
+            return astService.file(astService.expression(template, { components: components, mockData: mockData, step: step }), this.meta);
         }
     }
 
@@ -352,8 +352,8 @@ System.register('app/features/StepDefinitionEditor/Models/StepDefinitionModel.js
             _Symbol = _npmBabelRuntime5825CoreJsSymbol['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appFeaturesStepDefinitionEditorModelsComponentInstanceModelJs) {
             ComponentInstanceModel = _appFeaturesStepDefinitionEditorModelsComponentInstanceModelJs['default'];
         }, function (_appFeaturesStepDefinitionEditorModelsMockDataInstanceModelJs) {
@@ -363,7 +363,7 @@ System.register('app/features/StepDefinitionEditor/Models/StepDefinitionModel.js
 
             // Dependencies:
             'use strict';
-            _export('default', angular.module('tractor.stepDefinitionModel', [ASTCreatorService.name, ComponentInstanceModel.name, MockDataInstanceModel.name]).factory('StepDefinitionModel', createStepDefinitionModelConstructor));
+            _export('default', angular.module('tractor.stepDefinitionModel', [ASTService.name, ComponentInstanceModel.name, MockDataInstanceModel.name]).factory('StepDefinitionModel', createStepDefinitionModelConstructor));
         }
     };
 });
@@ -484,10 +484,10 @@ System.register('app/features/StepDefinitionEditor/Services/TaskParserService.js
         }
     };
 });
-System.register('app/features/StepDefinitionEditor/Models/TaskModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/features/ComponentEditor/Models/ArgumentModel.js', 'app/Core/Services/ASTCreatorService.js'], function (_export) {
-    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ArgumentModel, ASTCreatorService;
+System.register('app/features/StepDefinitionEditor/Models/TaskModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/features/ComponentEditor/Models/ArgumentModel.js', 'app/Core/Services/ASTService.js'], function (_export) {
+    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ArgumentModel, ASTService;
 
-    function createTaskModelConstructor(astCreatorService, ArgumentModel) {
+    function createTaskModelConstructor(astService, ArgumentModel) {
         var action = _Symbol();
         var args = _Symbol();
         var component = _Symbol();
@@ -552,13 +552,13 @@ System.register('app/features/StepDefinitionEditor/Models/TaskModel.js', ['npm:b
         function toAST() {
             var template = '<%= component %>.<%= action %>(%= taskArguments %)';
 
-            var action = astCreatorService.identifier(this.action.variableName);
-            var component = astCreatorService.identifier(this.component.variableName);
+            var action = astService.identifier(this.action.variableName);
+            var component = astService.identifier(this.component.variableName);
             var taskArguments = this.arguments.map(function (argument) {
                 return argument.ast;
             });
 
-            return astCreatorService.template(template, { action: action, component: component, taskArguments: taskArguments }).expression;
+            return astService.template(template, { action: action, component: component, taskArguments: taskArguments }).expression;
         }
 
         function parseArguments() {
@@ -584,21 +584,21 @@ System.register('app/features/StepDefinitionEditor/Models/TaskModel.js', ['npm:b
             angular = _githubAngularBowerAngular147['default'];
         }, function (_appFeaturesComponentEditorModelsArgumentModelJs) {
             ArgumentModel = _appFeaturesComponentEditorModelsArgumentModelJs['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }],
         execute: function () {
             'use strict';
 
             // Dependencies:
-            _export('default', angular.module('tractor.taskModel', [ArgumentModel.name, ASTCreatorService.name]).factory('TaskModel', createTaskModelConstructor));
+            _export('default', angular.module('tractor.taskModel', [ArgumentModel.name, ASTService.name]).factory('TaskModel', createTaskModelConstructor));
         }
     };
 });
-System.register('app/features/StepDefinitionEditor/Models/StepModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js', 'app/features/StepDefinitionEditor/Models/ExpectationModel.js', 'app/features/StepDefinitionEditor/Models/MockModel.js', 'app/features/StepDefinitionEditor/Models/TaskModel.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, angular, ASTCreatorService, ExpectationModel, MockModel, TaskModel;
+System.register('app/features/StepDefinitionEditor/Models/StepModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js', 'app/features/StepDefinitionEditor/Models/ExpectationModel.js', 'app/features/StepDefinitionEditor/Models/MockModel.js', 'app/features/StepDefinitionEditor/Models/TaskModel.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, angular, ASTService, ExpectationModel, MockModel, TaskModel;
 
-    function createStepModelConstructor(astCreatorService, ExpectationModel, TaskModel, MockModel) {
+    function createStepModelConstructor(astService, ExpectationModel, TaskModel, MockModel) {
         var expectations = _Symbol();
         var mocks = _Symbol();
         var stepDefinition = _Symbol();
@@ -711,9 +711,9 @@ System.register('app/features/StepDefinitionEditor/Models/StepModel.js', ['npm:b
             }
             template += '});';
 
-            var type = astCreatorService.identifier(this.type);
-            var regex = astCreatorService.literal(this.regex);
-            return astCreatorService.template(template, { type: type, regex: regex, mocks: mocks, tasks: tasks, expectations: expectations });
+            var type = astService.identifier(this.type);
+            var regex = astService.literal(this.regex);
+            return astService.template(template, { type: type, regex: regex, mocks: mocks, tasks: tasks, expectations: expectations });
         }
     }
 
@@ -726,8 +726,8 @@ System.register('app/features/StepDefinitionEditor/Models/StepModel.js', ['npm:b
             _Symbol = _npmBabelRuntime5825CoreJsSymbol['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appFeaturesStepDefinitionEditorModelsExpectationModelJs) {
             ExpectationModel = _appFeaturesStepDefinitionEditorModelsExpectationModelJs['default'];
         }, function (_appFeaturesStepDefinitionEditorModelsMockModelJs) {
@@ -739,14 +739,14 @@ System.register('app/features/StepDefinitionEditor/Models/StepModel.js', ['npm:b
             'use strict';
 
             // Dependencies:
-            _export('default', angular.module('tractor.stepModel', [ASTCreatorService.name, ExpectationModel.name, MockModel.name, TaskModel.name]).factory('StepModel', createStepModelConstructor));
+            _export('default', angular.module('tractor.stepModel', [ASTService.name, ExpectationModel.name, MockModel.name, TaskModel.name]).factory('StepModel', createStepModelConstructor));
         }
     };
 });
-System.register('app/features/StepDefinitionEditor/Models/MockModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js'], function (_export) {
-    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ASTCreatorService;
+System.register('app/features/StepDefinitionEditor/Models/MockModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js'], function (_export) {
+    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ASTService;
 
-    function createMockModelConstructor(astCreatorService) {
+    function createMockModelConstructor(astService) {
         var step = _Symbol();
 
         return (function () {
@@ -790,17 +790,17 @@ System.register('app/features/StepDefinitionEditor/Models/MockModel.js', ['npm:b
 
         function toAST() {
             var data = {
-                url: astCreatorService.literal(new RegExp(this.url))
+                url: astService.literal(new RegExp(this.url))
             };
             var template = 'httpBackend.when' + this.action + '(%= url %)';
             if (this.passThrough) {
                 template += '.passThrough(); ';
             } else {
                 template += '.respond(%= dataName %); ';
-                data.dataName = astCreatorService.identifier(this.data.variableName);
+                data.dataName = astService.identifier(this.data.variableName);
             }
 
-            return astCreatorService.template(template, data);
+            return astService.template(template, data);
         }
     }
 
@@ -815,14 +815,14 @@ System.register('app/features/StepDefinitionEditor/Models/MockModel.js', ['npm:b
             _Symbol = _npmBabelRuntime5825CoreJsSymbol['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }],
         execute: function () {
 
             // Dependencies:
             'use strict';
-            _export('default', angular.module('tractor.mockModel', [ASTCreatorService.name]).factory('MockModel', createMockModelConstructor));
+            _export('default', angular.module('tractor.mockModel', [ASTService.name]).factory('MockModel', createMockModelConstructor));
         }
     };
 });
@@ -938,10 +938,10 @@ System.register('app/features/StepDefinitionEditor/Services/MockParserService.js
         }
     };
 });
-System.register('app/features/StepDefinitionEditor/Models/ExpectationModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/features/ComponentEditor/Models/ArgumentModel.js', 'app/Core/Services/ASTCreatorService.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
-    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ArgumentModel, ASTCreatorService, StringToLiteralService;
+System.register('app/features/StepDefinitionEditor/Models/ExpectationModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/features/ComponentEditor/Models/ArgumentModel.js', 'app/Core/Services/ASTService.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
+    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ArgumentModel, ASTService, StringToLiteralService;
 
-    function createExpectationModelConstructor(ArgumentModel, astCreatorService, stringToLiteralService) {
+    function createExpectationModelConstructor(ArgumentModel, astService, stringToLiteralService) {
         var action = _Symbol();
         var args = _Symbol();
         var component = _Symbol();
@@ -1017,15 +1017,15 @@ System.register('app/features/StepDefinitionEditor/Models/ExpectationModel.js', 
             var expectationArguments = this.arguments.map(function (argument) {
                 return argument.ast;
             });
-            var expectedResult = astCreatorService.literal(stringToLiteralService.toLiteral(this.value));
+            var expectedResult = astService.literal(stringToLiteralService.toLiteral(this.value));
 
-            var action = astCreatorService.identifier(this.action.variableName);
-            var component = astCreatorService.identifier(this.component.variableName);
-            var condition = astCreatorService.identifier(this.condition);
+            var action = astService.identifier(this.action.variableName);
+            var component = astService.identifier(this.component.variableName);
+            var condition = astService.identifier(this.condition);
 
             var template = 'expect(<%= component %>.<%= action %>(%= expectationArguments %)).to.eventually.<%= condition %>(<%= expectedResult %>); ';
 
-            return astCreatorService.template(template, { action: action, component: component, condition: condition, expectationArguments: expectationArguments, expectedResult: expectedResult }).expression;
+            return astService.template(template, { action: action, component: component, condition: condition, expectationArguments: expectationArguments, expectedResult: expectedResult }).expression;
         }
 
         function parseArguments() {
@@ -1050,8 +1050,8 @@ System.register('app/features/StepDefinitionEditor/Models/ExpectationModel.js', 
             angular = _githubAngularBowerAngular147['default'];
         }, function (_appFeaturesComponentEditorModelsArgumentModelJs) {
             ArgumentModel = _appFeaturesComponentEditorModelsArgumentModelJs['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appCoreServicesStringToLiteralServiceJs) {
             StringToLiteralService = _appCoreServicesStringToLiteralServiceJs['default'];
         }],
@@ -1059,7 +1059,7 @@ System.register('app/features/StepDefinitionEditor/Models/ExpectationModel.js', 
 
             // Dependencies:
             'use strict';
-            _export('default', angular.module('tractor.expectationModel', [ArgumentModel.name, ASTCreatorService.name, StringToLiteralService.name]).factory('ExpectationModel', createExpectationModelConstructor));
+            _export('default', angular.module('tractor.expectationModel', [ArgumentModel.name, ASTService.name, StringToLiteralService.name]).factory('ExpectationModel', createExpectationModelConstructor));
         }
     };
 });
@@ -10927,10 +10927,10 @@ System.register('app/features/ComponentEditor/Services/ElementParserService.js',
         }
     };
 });
-System.register('app/features/ComponentEditor/Models/FilterModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:phenomnomnominal/dedent@master', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
-    var _createClass, _classCallCheck, _slicedToArray, _Symbol, dedent, angular, ASTCreatorService, StringToLiteralService, element, types;
+System.register('app/features/ComponentEditor/Models/FilterModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:phenomnomnominal/dedent@master', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
+    var _createClass, _classCallCheck, _slicedToArray, _Symbol, dedent, angular, ASTService, StringToLiteralService, element, types;
 
-    function createFilterModelConstructor(astCreatorService, stringToLiteralService) {
+    function createFilterModelConstructor(astService, stringToLiteralService) {
         return (function () {
             function FilterModel(_element) {
                 _classCallCheck(this, FilterModel);
@@ -10986,28 +10986,28 @@ System.register('app/features/ComponentEditor/Models/FilterModel.js', ['npm:babe
         }
 
         function toNestedAST() {
-            var locator = astCreatorService.literal(this.locator);
+            var locator = astService.literal(this.locator);
 
             var number = stringToLiteralService.toLiteral(locator.value);
             if (angular.isNumber(number)) {
-                return astCreatorService.literal(number);
+                return astService.literal(number);
             } else {
                 var template = dedent('\n                (function (element) {\n                    return element.getText().then(function (text) {\n                        return text.indexOf(<%= locator %>) !== -1;\n                    });\n                });\n            ');
-                return astCreatorService.expression(template, { locator: locator });
+                return astService.expression(template, { locator: locator });
             }
         }
 
         function toSingleAST() {
-            var locator = astCreatorService.literal(this.locator);
-            var type = astCreatorService.identifier(this.type);
+            var locator = astService.literal(this.locator);
+            var type = astService.identifier(this.type);
 
             var template = '';
             if (this.isText) {
                 template += 'by.cssContainingText(\'*\', <%= locator %>)';
-                return astCreatorService.expression(template, { locator: locator });
+                return astService.expression(template, { locator: locator });
             } else {
                 template += 'by.<%= type %>(<%= locator %>)';
-                return astCreatorService.expression(template, { type: type, locator: locator });
+                return astService.expression(template, { type: type, locator: locator });
             }
         }
     }
@@ -11025,8 +11025,8 @@ System.register('app/features/ComponentEditor/Models/FilterModel.js', ['npm:babe
             dedent = _githubPhenomnomnominalDedentMaster['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appCoreServicesStringToLiteralServiceJs) {
             StringToLiteralService = _appCoreServicesStringToLiteralServiceJs['default'];
         }],
@@ -11041,7 +11041,7 @@ System.register('app/features/ComponentEditor/Models/FilterModel.js', ['npm:babe
             element = _Symbol();
             types = _Symbol();
 
-            _export('default', angular.module('tractor.filterModel', [ASTCreatorService.name, StringToLiteralService.name]).factory('FilterModel', createFilterModelConstructor));
+            _export('default', angular.module('tractor.filterModel', [ASTService.name, StringToLiteralService.name]).factory('FilterModel', createFilterModelConstructor));
         }
     };
 });
@@ -11154,10 +11154,10 @@ System.register('app/features/ComponentEditor/Models/ElementMethods.js', [], fun
         }
     };
 });
-System.register('app/features/ComponentEditor/Models/ElementModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js', 'app/features/ComponentEditor/Models/ElementMethods.js', 'app/features/ComponentEditor/Models/FilterModel.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
-    var _createClass, _classCallCheck, _slicedToArray, _Symbol, changecase, angular, ASTCreatorService, ElementMethods, FilterModel, StringToLiteralService, component, filters, sortableFilters;
+System.register('app/features/ComponentEditor/Models/ElementModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js', 'app/features/ComponentEditor/Models/ElementMethods.js', 'app/features/ComponentEditor/Models/FilterModel.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
+    var _createClass, _classCallCheck, _slicedToArray, _Symbol, changecase, angular, ASTService, ElementMethods, FilterModel, StringToLiteralService, component, filters, sortableFilters;
 
-    function createElementModelConstructor(astCreatorService, FilterModel, stringToLiteralService) {
+    function createElementModelConstructor(astService, FilterModel, stringToLiteralService) {
         return (function () {
             function ElementModel(_component) {
                 _classCallCheck(this, ElementModel);
@@ -11242,12 +11242,12 @@ System.register('app/features/ComponentEditor/Models/ElementModel.js', ['npm:bab
         })();
 
         function toAST() {
-            var element = astCreatorService.identifier(this.variableName);
+            var element = astService.identifier(this.variableName);
             var filters = filtersAST.call(this);
 
             var template = 'this.<%= element %> = <%= filters %>;';
 
-            return astCreatorService.expression(template, { element: element, filters: filters });
+            return astService.expression(template, { element: element, filters: filters });
         }
 
         function filtersAST() {
@@ -11266,7 +11266,7 @@ System.register('app/features/ComponentEditor/Models/ElementModel.js', ['npm:bab
                 return filter;
             }, {});
 
-            return astCreatorService.expression(template, fragments);
+            return astService.expression(template, fragments);
         }
 
         function filterAST(filter, filterTemplate) {
@@ -11317,8 +11317,8 @@ System.register('app/features/ComponentEditor/Models/ElementModel.js', ['npm:bab
             changecase = _npmChangeCase230['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appFeaturesComponentEditorModelsElementMethodsJs) {
             ElementMethods = _appFeaturesComponentEditorModelsElementMethodsJs['default'];
         }, function (_appFeaturesComponentEditorModelsFilterModelJs) {
@@ -11338,7 +11338,7 @@ System.register('app/features/ComponentEditor/Models/ElementModel.js', ['npm:bab
             filters = _Symbol();
             sortableFilters = _Symbol();
 
-            _export('default', angular.module('tractor.elementModel', [ASTCreatorService.name, FilterModel.name, StringToLiteralService.name]).factory('ElementModel', createElementModelConstructor));
+            _export('default', angular.module('tractor.elementModel', [ASTService.name, FilterModel.name, StringToLiteralService.name]).factory('ElementModel', createElementModelConstructor));
         }
     };
 });
@@ -11461,10 +11461,10 @@ System.register('app/features/ComponentEditor/Models/BrowserModel.js', ['npm:bab
         }
     };
 });
-System.register('app/features/ComponentEditor/Models/ComponentModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:phenomnomnominal/dedent@master', 'github:angular/bower-angular@1.4.7', 'app/features/ComponentEditor/Models/ActionModel.js', 'app/Core/Services/ASTCreatorService.js', 'app/features/ComponentEditor/Models/BrowserModel.js', 'app/features/ComponentEditor/Models/ElementModel.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, changecase, dedent, angular, ActionModel, ASTCreatorService, BrowserModel, ElementModel, actions, browser, domElements, elements, options;
+System.register('app/features/ComponentEditor/Models/ComponentModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:phenomnomnominal/dedent@master', 'github:angular/bower-angular@1.4.7', 'app/features/ComponentEditor/Models/ActionModel.js', 'app/Core/Services/ASTService.js', 'app/features/ComponentEditor/Models/BrowserModel.js', 'app/features/ComponentEditor/Models/ElementModel.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, changecase, dedent, angular, ActionModel, ASTService, BrowserModel, ElementModel, actions, browser, domElements, elements, options;
 
-    function createComponentModelConstructor(astCreatorService, BrowserModel, ElementModel, ActionModel) {
+    function createComponentModelConstructor(astService, BrowserModel, ElementModel, ActionModel) {
         return (function () {
             function ComponentModel() {
                 var _options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -11588,17 +11588,17 @@ System.register('app/features/ComponentEditor/Models/ComponentModel.js', ['npm:b
         })();
 
         function toAST() {
-            var component = astCreatorService.identifier(this.variableName);
+            var component = astService.identifier(this.variableName);
             var elements = this.domElements.map(function (element) {
-                return astCreatorService.expressionStatement(element.ast);
+                return astService.expressionStatement(element.ast);
             });
             var actions = this.actions.map(function (action) {
-                return astCreatorService.expressionStatement(action.ast);
+                return astService.expressionStatement(action.ast);
             });
 
             var template = dedent('\n            module.exports = (function () {\n                var <%= component %> = function <%= component %> () {\n                    %= elements %;\n                };\n                %= actions %;\n                return <%= component %>\n            })();\n        ');
 
-            return astCreatorService.file(astCreatorService.expression(template, {
+            return astService.file(astService.expression(template, {
                 component: component,
                 elements: elements,
                 actions: actions
@@ -11621,8 +11621,8 @@ System.register('app/features/ComponentEditor/Models/ComponentModel.js', ['npm:b
             angular = _githubAngularBowerAngular147['default'];
         }, function (_appFeaturesComponentEditorModelsActionModelJs) {
             ActionModel = _appFeaturesComponentEditorModelsActionModelJs['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appFeaturesComponentEditorModelsBrowserModelJs) {
             BrowserModel = _appFeaturesComponentEditorModelsBrowserModelJs['default'];
         }, function (_appFeaturesComponentEditorModelsElementModelJs) {
@@ -11642,7 +11642,7 @@ System.register('app/features/ComponentEditor/Models/ComponentModel.js', ['npm:b
             elements = _Symbol();
             options = _Symbol();
 
-            _export('default', angular.module('tractor.componentModel', [ActionModel.name, ASTCreatorService.name, BrowserModel.name, ElementModel.name]).factory('ComponentModel', createComponentModelConstructor));
+            _export('default', angular.module('tractor.componentModel', [ActionModel.name, ASTService.name, BrowserModel.name, ElementModel.name]).factory('ComponentModel', createComponentModelConstructor));
         }
     };
 });
@@ -11915,10 +11915,10 @@ System.register('app/features/ComponentEditor/Services/InteractionParserService.
         }
     };
 });
-System.register('app/features/ComponentEditor/Models/ParameterModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, changecase, angular, ASTCreatorService, action;
+System.register('app/features/ComponentEditor/Models/ParameterModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, changecase, angular, ASTService, action;
 
-    function createParameterModelConstructor(astCreatorService) {
+    function createParameterModelConstructor(astService) {
         return (function () {
             function ParameterModel(_action) {
                 _classCallCheck(this, ParameterModel);
@@ -11966,7 +11966,7 @@ System.register('app/features/ComponentEditor/Models/ParameterModel.js', ['npm:b
         })();
 
         function toAST() {
-            return astCreatorService.identifier(this.variableName);
+            return astService.identifier(this.variableName);
         }
     }
 
@@ -11981,8 +11981,8 @@ System.register('app/features/ComponentEditor/Models/ParameterModel.js', ['npm:b
             changecase = _npmChangeCase230['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }],
         execute: function () {
 
@@ -11994,7 +11994,7 @@ System.register('app/features/ComponentEditor/Models/ParameterModel.js', ['npm:b
             // Utilities:
             action = _Symbol();
 
-            _export('default', angular.module('tractor.parameterModel', [ASTCreatorService.name]).factory('ParameterModel', createParameterModelConstructor));
+            _export('default', angular.module('tractor.parameterModel', [ASTService.name]).factory('ParameterModel', createParameterModelConstructor));
         }
     };
 });
@@ -12105,10 +12105,10 @@ System.register('app/Core/Services/StringToLiteralService.js', ['npm:babel-runti
         }
     };
 });
-System.register('app/features/ComponentEditor/Models/ArgumentModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, angular, ASTCreatorService, StringToLiteralService, argument, method;
+System.register('app/features/ComponentEditor/Models/ArgumentModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js', 'app/Core/Services/StringToLiteralService.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, angular, ASTService, StringToLiteralService, argument, method;
 
-    function createArgumentModelConstructor(astCreatorService, stringToLiteralService) {
+    function createArgumentModelConstructor(astService, stringToLiteralService) {
         return (function () {
             function ArgumentModel(_method, _argument) {
                 _classCallCheck(this, ArgumentModel);
@@ -12160,15 +12160,15 @@ System.register('app/features/ComponentEditor/Models/ArgumentModel.js', ['npm:ba
             var result = findResult.call(this);
 
             if (!angular.isUndefined(literal) && literal !== this.value) {
-                return astCreatorService.literal(literal);
+                return astService.literal(literal);
             } else if (parameter) {
-                return astCreatorService.identifier(parameter.variableName);
+                return astService.identifier(parameter.variableName);
             } else if (result) {
-                return astCreatorService.identifier(this.value);
+                return astService.identifier(this.value);
             } else if (this.value) {
-                return astCreatorService.literal(this.value);
+                return astService.literal(this.value);
             } else {
-                return astCreatorService.literal(null);
+                return astService.literal(null);
             }
         }
 
@@ -12199,8 +12199,8 @@ System.register('app/features/ComponentEditor/Models/ArgumentModel.js', ['npm:ba
             _Symbol = _npmBabelRuntime5825CoreJsSymbol['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appCoreServicesStringToLiteralServiceJs) {
             StringToLiteralService = _appCoreServicesStringToLiteralServiceJs['default'];
         }],
@@ -12213,7 +12213,7 @@ System.register('app/features/ComponentEditor/Models/ArgumentModel.js', ['npm:ba
             argument = _Symbol();
             method = _Symbol();
 
-            _export('default', angular.module('tractor.argumentModel', [ASTCreatorService.name, StringToLiteralService.name]).factory('ArgumentModel', createArgumentModelConstructor));
+            _export('default', angular.module('tractor.argumentModel', [ASTService.name, StringToLiteralService.name]).factory('ArgumentModel', createArgumentModelConstructor));
         }
     };
 });
@@ -12302,10 +12302,10 @@ System.register('app/features/ComponentEditor/Models/MethodModel.js', ['npm:babe
         }
     };
 });
-System.register('app/features/ComponentEditor/Models/InteractionModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js', 'app/features/ComponentEditor/Models/MethodModel.js'], function (_export) {
-    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ASTCreatorService, MethodModel, action, element, method, methodInstance;
+System.register('app/features/ComponentEditor/Models/InteractionModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:babel-runtime@5.8.25/core-js/symbol', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js', 'app/features/ComponentEditor/Models/MethodModel.js'], function (_export) {
+    var _createClass, _classCallCheck, _slicedToArray, _Symbol, angular, ASTService, MethodModel, action, element, method, methodInstance;
 
-    function createInteractionModelConstructor(astCreatorService, MethodModel) {
+    function createInteractionModelConstructor(astService, MethodModel) {
         return (function () {
             function InteractionModel(_action) {
                 _classCallCheck(this, InteractionModel);
@@ -12368,7 +12368,7 @@ System.register('app/features/ComponentEditor/Models/InteractionModel.js', ['npm
             }
 
             var interaction = interactionAST.call(this);
-            return astCreatorService.expression(template, { interaction: interaction });
+            return astService.expression(template, { interaction: interaction });
         }
 
         function interactionAST() {
@@ -12378,13 +12378,13 @@ System.register('app/features/ComponentEditor/Models/InteractionModel.js', ['npm
             }
             template += '.<%= method %>(%= argumentValues %);';
 
-            var element = astCreatorService.identifier(this.element.variableName);
-            var method = astCreatorService.identifier(this.methodInstance.name);
+            var element = astService.identifier(this.element.variableName);
+            var method = astService.identifier(this.methodInstance.name);
             var argumentValues = this.methodInstance.arguments.map(function (argument) {
                 return argument.ast;
             });
 
-            return astCreatorService.expression(template, { element: element, method: method, argumentValues: argumentValues });
+            return astService.expression(template, { element: element, method: method, argumentValues: argumentValues });
         }
     }
 
@@ -12399,8 +12399,8 @@ System.register('app/features/ComponentEditor/Models/InteractionModel.js', ['npm
             _Symbol = _npmBabelRuntime5825CoreJsSymbol['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appFeaturesComponentEditorModelsMethodModelJs) {
             MethodModel = _appFeaturesComponentEditorModelsMethodModelJs['default'];
         }],
@@ -12415,7 +12415,7 @@ System.register('app/features/ComponentEditor/Models/InteractionModel.js', ['npm
             method = _Symbol();
             methodInstance = _Symbol();
 
-            _export('default', angular.module('tractor.interactionModel', [ASTCreatorService.name, MethodModel.name]).factory('InteractionModel', createInteractionModelConstructor));
+            _export('default', angular.module('tractor.interactionModel', [ASTService.name, MethodModel.name]).factory('InteractionModel', createInteractionModelConstructor));
         }
     };
 });
@@ -16333,8 +16333,8 @@ System.registerDynamic("npm:lodash.isregexp@3.0.3", ["npm:lodash.isregexp@3.0.3/
   return module.exports;
 });
 
-System.register('app/Core/Services/ASTCreatorService.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:lodash.isregexp@3.0.3', 'github:angular/bower-angular@1.4.7', 'npm:estemplate@0.4.0'], function (_export) {
-    var _createClass, _classCallCheck, _slicedToArray, isRegExp, angular, estemplate, ASTCreatorService;
+System.register('app/Core/Services/ASTService.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/helpers/sliced-to-array', 'npm:lodash.isregexp@3.0.3', 'github:angular/bower-angular@1.4.7', 'npm:estemplate@0.4.0'], function (_export) {
+    var _createClass, _classCallCheck, _slicedToArray, isRegExp, angular, estemplate, ASTService;
 
     function program() {
         var body = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
@@ -16374,12 +16374,12 @@ System.register('app/Core/Services/ASTCreatorService.js', ['npm:babel-runtime@5.
             'use strict';
 
             // Utilities:
-            ASTCreatorService = (function () {
-                function ASTCreatorService() {
-                    _classCallCheck(this, ASTCreatorService);
+            ASTService = (function () {
+                function ASTService() {
+                    _classCallCheck(this, ASTService);
                 }
 
-                _createClass(ASTCreatorService, [{
+                _createClass(ASTService, [{
                     key: 'file',
                     value: function file(expression, meta) {
                         return program([this.expressionStatement(expression)], [blockComment(meta)]);
@@ -16436,10 +16436,10 @@ System.register('app/Core/Services/ASTCreatorService.js', ['npm:babel-runtime@5.
                     }
                 }]);
 
-                return ASTCreatorService;
+                return ASTService;
             })();
 
-            _export('default', angular.module('tractor.astCreatorService', []).service('astCreatorService', ASTCreatorService));
+            _export('default', angular.module('tractor.astService', []).service('astService', ASTService));
         }
     };
 });
@@ -16506,10 +16506,10 @@ System.registerDynamic("github:phenomnomnominal/dedent@master", ["github:phenomn
   return module.exports;
 });
 
-System.register('app/features/ComponentEditor/Models/ActionModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:phenomnomnominal/dedent@master', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTCreatorService.js', 'app/features/ComponentEditor/Models/InteractionModel.js', 'app/features/ComponentEditor/Models/ParameterModel.js'], function (_export) {
-    var _createClass, _classCallCheck, _Symbol, changecase, dedent, angular, ASTCreatorService, InteractionModel, ParameterModel, component, interactions, parameters;
+System.register('app/features/ComponentEditor/Models/ActionModel.js', ['npm:babel-runtime@5.8.25/helpers/create-class', 'npm:babel-runtime@5.8.25/helpers/class-call-check', 'npm:babel-runtime@5.8.25/core-js/symbol', 'npm:change-case@2.3.0', 'github:phenomnomnominal/dedent@master', 'github:angular/bower-angular@1.4.7', 'app/Core/Services/ASTService.js', 'app/features/ComponentEditor/Models/InteractionModel.js', 'app/features/ComponentEditor/Models/ParameterModel.js'], function (_export) {
+    var _createClass, _classCallCheck, _Symbol, changecase, dedent, angular, ASTService, InteractionModel, ParameterModel, component, interactions, parameters;
 
-    function createActionModelConstructor(astCreatorService, InteractionModel, ParameterModel) {
+    function createActionModelConstructor(astService, InteractionModel, ParameterModel) {
         return (function () {
             function ActionModel(_component) {
                 _classCallCheck(this, ActionModel);
@@ -16596,8 +16596,8 @@ System.register('app/features/ComponentEditor/Models/ActionModel.js', ['npm:babe
         })();
 
         function toAST() {
-            var component = astCreatorService.identifier(this.component.variableName);
-            var action = astCreatorService.identifier(this.variableName);
+            var component = astService.identifier(this.component.variableName);
+            var action = astService.identifier(this.variableName);
             var parameters = this.parameters.map(function (parameter) {
                 return parameter.ast;
             });
@@ -16609,7 +16609,7 @@ System.register('app/features/ComponentEditor/Models/ActionModel.js', ['npm:babe
             }
             template += '};';
 
-            return astCreatorService.expression(template, { component: component, action: action, parameters: parameters, interactions: interactions });
+            return astService.expression(template, { component: component, action: action, parameters: parameters, interactions: interactions });
         }
 
         function interactionsAST() {
@@ -16629,14 +16629,14 @@ System.register('app/features/ComponentEditor/Models/ActionModel.js', ['npm:babe
 
                 var previousResult = previousInteractionResult(previousInteraction);
                 if (previousResult) {
-                    var parameter = astCreatorService.identifier(previousResult);
+                    var parameter = astService.identifier(previousResult);
                     fragments['parameter' + index].push(parameter);
                 }
 
                 return interaction;
             }, {});
 
-            return astCreatorService.expression(template, fragments);
+            return astService.expression(template, fragments);
         }
 
         function previousInteractionResult(previous) {
@@ -16660,8 +16660,8 @@ System.register('app/features/ComponentEditor/Models/ActionModel.js', ['npm:babe
             dedent = _githubPhenomnomnominalDedentMaster['default'];
         }, function (_githubAngularBowerAngular147) {
             angular = _githubAngularBowerAngular147['default'];
-        }, function (_appCoreServicesASTCreatorServiceJs) {
-            ASTCreatorService = _appCoreServicesASTCreatorServiceJs['default'];
+        }, function (_appCoreServicesASTServiceJs) {
+            ASTService = _appCoreServicesASTServiceJs['default'];
         }, function (_appFeaturesComponentEditorModelsInteractionModelJs) {
             InteractionModel = _appFeaturesComponentEditorModelsInteractionModelJs['default'];
         }, function (_appFeaturesComponentEditorModelsParameterModelJs) {
@@ -16678,7 +16678,7 @@ System.register('app/features/ComponentEditor/Models/ActionModel.js', ['npm:babe
             interactions = _Symbol();
             parameters = _Symbol();
 
-            _export('default', angular.module('tractor.actionModel', [ASTCreatorService.name, InteractionModel.name, ParameterModel.name]).factory('ActionModel', createActionModelConstructor));
+            _export('default', angular.module('tractor.actionModel', [ASTService.name, InteractionModel.name, ParameterModel.name]).factory('ActionModel', createActionModelConstructor));
         }
     };
 });

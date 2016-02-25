@@ -6,16 +6,19 @@ import assert from 'assert';
 // Dependencies:
 import angular from 'angular';
 import ActionModel from '../Models/ActionModel';
+import ASTService from '../../../Core/Services/ASTService';
 import InteractionParserService from './InteractionParserService';
 import ParameterParserService from './ParameterParserService';
 
 class ActionParserService {
     constructor (
         ActionModel,
+        astService,
         interactionParserService,
         parameterParserService
     ) {
         this.ActionModel = ActionModel;
+        this.astService = astService;
         this.interactionParserService = interactionParserService;
         this.parameterParserService = parameterParserService;
     }
@@ -33,7 +36,7 @@ class ActionParserService {
 
             return action;
         } catch (e) {
-            console.warn('Invalid action:', ast);
+            console.warn('Invalid action:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -75,6 +78,7 @@ function parseInteraction (action, statement) {
 
 export default angular.module('tractor.actionParserService', [
     ActionModel.name,
+    ASTService.name,
     InteractionParserService.name,
     ParameterParserService.name
 ])

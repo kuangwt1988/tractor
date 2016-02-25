@@ -5,12 +5,15 @@ import assert from 'assert';
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import TaskModel from '../Models/TaskModel';
 
 class TaskParserService {
     constructor (
+        astService,
         TaskModel
     ) {
+        this.astService = astService;
         this.TaskModel = TaskModel;
     }
 
@@ -27,7 +30,7 @@ class TaskParserService {
 
             throw new Error();
         } catch (e) {
-            console.warn('Invalid task:', ast);
+            console.warn('Invalid task:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -84,6 +87,7 @@ function parseTask (step, taskCallExpression) {
 }
 
 export default angular.module('tractor.taskParserService', [
+    ASTService.name,
     TaskModel.name
 ])
 .service('taskParserService', TaskParserService);

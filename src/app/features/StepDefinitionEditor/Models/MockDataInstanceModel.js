@@ -6,10 +6,10 @@ import path from 'path';
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 
 function createMockDataInstanceModelConstructor (
-    astCreatorService
+    astService
 ) {
     const mockData = Symbol();
     const stepDefinition = Symbol();
@@ -52,16 +52,16 @@ function createMockDataInstanceModelConstructor (
         let stepDefinitionPath = this.stepDefinition.path.replace(/\\/g, '/');
         let mockDataPath = this.mockData.path.replace(/\\/g, '/');
         let relativePath = path.relative(path.dirname(stepDefinitionPath), mockDataPath);
-        relativePath = astCreatorService.literal(relativePath)
-        let name = astCreatorService.identifier(this.variableName);
+        relativePath = astService.literal(relativePath)
+        let name = astService.identifier(this.variableName);
 
         let template = 'var <%= name %> = require(<%= relativePath %>); ';
 
-        return astCreatorService.template(template, { name, relativePath });
+        return astService.template(template, { name, relativePath });
     }
 }
 
 export default angular.module('tractor.mockDataInstanceModel', [
-    ASTCreatorService.name
+    ASTService.name
 ])
 .factory('MockDataInstanceModel', createMockDataInstanceModelConstructor);

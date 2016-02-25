@@ -2,7 +2,7 @@
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import StringToLiteralService from '../../../Core/Services/StringToLiteralService';
 
 // Symbols;
@@ -10,7 +10,7 @@ const argument = Symbol();
 const method = Symbol();
 
 function createArgumentModelConstructor (
-    astCreatorService,
+    astService,
     stringToLiteralService
 ) {
     return class ArgumentModel {
@@ -52,15 +52,15 @@ function createArgumentModelConstructor (
         let result = findResult.call(this);
 
         if (!angular.isUndefined(literal) && literal !== this.value) {
-            return astCreatorService.literal(literal);
+            return astService.literal(literal);
         } else if (parameter) {
-            return astCreatorService.identifier(parameter.variableName);
+            return astService.identifier(parameter.variableName);
         } else if (result) {
-            return astCreatorService.identifier(this.value);
+            return astService.identifier(this.value);
         } else if (this.value) {
-            return astCreatorService.literal(this.value);
+            return astService.literal(this.value);
         } else {
-            return astCreatorService.literal(null);
+            return astService.literal(null);
         }
     }
 
@@ -79,7 +79,7 @@ function createArgumentModelConstructor (
 }
 
 export default angular.module('tractor.argumentModel', [
-    ASTCreatorService.name,
+    ASTService.name,
     StringToLiteralService.name
 ])
 .factory('ArgumentModel', createArgumentModelConstructor);

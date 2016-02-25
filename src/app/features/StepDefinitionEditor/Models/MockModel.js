@@ -2,10 +2,10 @@
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 
 function createMockModelConstructor (
-    astCreatorService
+    astService
 ) {
     const step = Symbol();
 
@@ -35,21 +35,21 @@ function createMockModelConstructor (
 
     function toAST () {
         let data = {
-            url: astCreatorService.literal(new RegExp(this.url))
+            url: astService.literal(new RegExp(this.url))
         };
         let template = `httpBackend.when${this.action}(%= url %)`;
         if (this.passThrough) {
             template += '.passThrough(); ';
         } else {
             template += '.respond(%= dataName %); ';
-            data.dataName = astCreatorService.identifier(this.data.variableName);
+            data.dataName = astService.identifier(this.data.variableName);
         }
 
-        return astCreatorService.template(template, data);
+        return astService.template(template, data);
     }
 }
 
 export default angular.module('tractor.mockModel', [
-    ASTCreatorService.name
+    ASTService.name
 ])
 .factory('MockModel', createMockModelConstructor);

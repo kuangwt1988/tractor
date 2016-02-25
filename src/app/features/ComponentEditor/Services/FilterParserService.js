@@ -5,12 +5,15 @@ import assert from 'assert';
 
 // Dependencies:
 import angular from 'angular';
+import ASTService from '../../../Core/Services/ASTService';
 import FilterModel from '../Models/FilterModel';
 
 class FilterParserService {
     constructor (
+        astService,
         FilterModel
     ) {
+        this.astService = astService;
         this.FilterModel = FilterModel;
     }
 
@@ -23,7 +26,7 @@ class FilterParserService {
 
             return filter;
         } catch (e) {
-            console.warn('Invalid filter:', ast);
+            console.warn('Invalid filter:', this.astService.toJS(ast));
             return null;
         }
     }
@@ -76,6 +79,7 @@ function parseOptionsRepeaterTextFilter (filter, ast) {
 }
 
 export default angular.module('tractor.filterParserService', [
+    ASTService.name,
     FilterModel.name
 ])
 .service('filterParserService', FilterParserService);

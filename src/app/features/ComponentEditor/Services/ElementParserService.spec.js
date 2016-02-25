@@ -19,12 +19,17 @@ import './ElementParserService';
 let elementParserService;
 
 describe('ElementParserService.js:', () => {
+    let astService;
     let filterParserService;
 
     beforeEach(() => {
         angular.mock.module('tractor.elementParserService');
 
         angular.mock.module($provide => {
+            $provide.factory('astService', () => {
+                astService = {};
+                return astService;
+            });
             $provide.factory('filterParserService', () => {
                 filterParserService = {};
                 return filterParserService;
@@ -91,198 +96,198 @@ describe('ElementParserService.js:', () => {
 
             elementParserService.parse.restore();
         });
-        
-        // it('should attempt to recursively parse any nested filters', () => {
-        //     let component = {};
-        //     let ast = {
-        //         expression: {
-        //             right: {
-        //                 callee: {
-        //                     object: {
-        //                         callee: {
-        //                             property: {
-        //                                 name: 'filter'
-        //                             },
-        //                             object: {
-        //                                 arguments: [],
-        //                                 callee: {
-        //                                     name: 'element'
-        //                                 }
-        //                             }
-        //                         }
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-        //
-        //     sinon.spy(elementParserService, 'parse');
-        //     filterParserService.parse = angular.noop;
-        //     sinon.stub(filterParserService, 'parse');
-        //
-        //     elementParserService.parse(component, ast);
-        //
-        //     expect(elementParserService.parse).to.have.been.calledTwice();
-        //
-        //     elementParserService.parse.restore();
-        // });
-        //
-        // it('should attempt to parse an `element` selector', () => {
-        //     let component = {};
-        //     let ast = {
-        //         expression: {
-        //             right: {
-        //                 arguments: [],
-        //                 callee: {
-        //                     name: 'element'
-        //                 }
-        //             }
-        //         }
-        //     };
-        //
-        //     let filter = {};
-        //     filterParserService.parse = angular.noop;
-        //     sinon.stub(filterParserService, 'parse').returns(filter);
-        //
-        //     let elementModel = elementParserService.parse(component, ast);
-        //
-        //     expect(elementModel.filters.length).to.equal(1);
-        //     let [filterModel] = elementModel.filters;
-        //     expect(filterModel).to.equal(filter);
-        // });
-        //
-        // it('should attempt to parse an `element.all` selector', () => {
-        //     let component = {};
-        //     let ast = {
-        //         expression: {
-        //             right: {
-        //                 arguments: [],
-        //                 callee: {
-        //                     object: {
-        //                         name: 'element'
-        //                     },
-        //                     property: {
-        //                         name: 'all'
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-        //
-        //     let filter = {};
-        //     filterParserService.parse = angular.noop;
-        //     sinon.stub(filterParserService, 'parse').returns(filter);
-        //
-        //     let elementModel = elementParserService.parse(component, ast);
-        //
-        //     expect(elementModel.filters.length).to.equal(1);
-        //     let [filterModel] = elementModel.filters;
-        //     expect(filterModel).to.equal(filter);
-        // });
-        //
-        // it('should attempt to parse an `.element` selector', () => {
-        //     let component = {};
-        //     let ast = {
-        //         expression: {
-        //             right: {
-        //                 arguments: [],
-        //                 callee: {
-        //                     property: {
-        //                         name: 'element'
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-        //
-        //     let filter = {};
-        //     filterParserService.parse = angular.noop;
-        //     sinon.stub(filterParserService, 'parse').returns(filter);
-        //
-        //     let elementModel = elementParserService.parse(component, ast);
-        //
-        //     expect(elementModel.filters.length).to.equal(1);
-        //     let [filterModel] = elementModel.filters;
-        //     expect(filterModel).to.equal(filter);
-        // });
-        //
-        // it('should attempt to parse an `.element.all` selector', () => {
-        //     let component = {};
-        //     let ast = {
-        //         expression: {
-        //             right: {
-        //                 arguments: [],
-        //                 callee: {
-        //                     property: {
-        //                         name: 'all'
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-        //
-        //     let filter = {};
-        //     filterParserService.parse = angular.noop;
-        //     sinon.stub(filterParserService, 'parse').returns(filter);
-        //
-        //     let elementModel = elementParserService.parse(component, ast);
-        //
-        //     expect(elementModel.filters.length).to.equal(1);
-        //     let [filterModel] = elementModel.filters;
-        //     expect(filterModel).to.equal(filter);
-        // });
-        //
-        // it('should attempt to parse a `.filter` selector', () => {
-        //     let component = {};
-        //     let ast = {
-        //         expression: {
-        //             right: {
-        //                 arguments: [],
-        //                 callee: {
-        //                     property: {
-        //                         name: 'filter'
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-        //
-        //     let filter = {};
-        //     filterParserService.parse = angular.noop;
-        //     sinon.stub(filterParserService, 'parse').returns(filter);
-        //
-        //     let elementModel = elementParserService.parse(component, ast);
-        //
-        //     expect(elementModel.filters.length).to.equal(1);
-        //     let [filterModel] = elementModel.filters;
-        //     expect(filterModel).to.equal(filter);
-        // });
-        //
-        // it('should attempt to parse a `.get` selector', () => {
-        //     let component = {};
-        //     let ast = {
-        //         expression: {
-        //             right: {
-        //                 arguments: [],
-        //                 callee: {
-        //                     property: {
-        //                         name: 'get'
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-        //
-        //     let filter = {};
-        //     filterParserService.parse = angular.noop;
-        //     sinon.stub(filterParserService, 'parse').returns(filter);
-        //
-        //     let elementModel = elementParserService.parse(component, ast);
-        //
-        //     expect(elementModel.filters.length).to.equal(1);
-        //     let [filterModel] = elementModel.filters;
-        //     expect(filterModel).to.equal(filter);
-        // });
+
+        it('should attempt to recursively parse any nested filters', () => {
+            let component = {};
+            let ast = {
+                expression: {
+                    right: {
+                        callee: {
+                            object: {
+                                callee: {
+                                    property: {
+                                        name: 'filter'
+                                    },
+                                    object: {
+                                        arguments: [],
+                                        callee: {
+                                            name: 'element'
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            sinon.spy(elementParserService, 'parse');
+            filterParserService.parse = angular.noop;
+            sinon.stub(filterParserService, 'parse');
+
+            elementParserService.parse(component, ast);
+
+            expect(elementParserService.parse).to.have.been.calledTwice();
+
+            elementParserService.parse.restore();
+        });
+
+        it('should attempt to parse an `element` selector', () => {
+            let component = {};
+            let ast = {
+                expression: {
+                    right: {
+                        arguments: [],
+                        callee: {
+                            name: 'element'
+                        }
+                    }
+                }
+            };
+
+            let filter = {};
+            filterParserService.parse = angular.noop;
+            sinon.stub(filterParserService, 'parse').returns(filter);
+
+            let elementModel = elementParserService.parse(component, ast);
+
+            expect(elementModel.filters.length).to.equal(1);
+            let [filterModel] = elementModel.filters;
+            expect(filterModel).to.equal(filter);
+        });
+
+        it('should attempt to parse an `element.all` selector', () => {
+            let component = {};
+            let ast = {
+                expression: {
+                    right: {
+                        arguments: [],
+                        callee: {
+                            object: {
+                                name: 'element'
+                            },
+                            property: {
+                                name: 'all'
+                            }
+                        }
+                    }
+                }
+            };
+
+            let filter = {};
+            filterParserService.parse = angular.noop;
+            sinon.stub(filterParserService, 'parse').returns(filter);
+
+            let elementModel = elementParserService.parse(component, ast);
+
+            expect(elementModel.filters.length).to.equal(1);
+            let [filterModel] = elementModel.filters;
+            expect(filterModel).to.equal(filter);
+        });
+
+        it('should attempt to parse an `.element` selector', () => {
+            let component = {};
+            let ast = {
+                expression: {
+                    right: {
+                        arguments: [],
+                        callee: {
+                            property: {
+                                name: 'element'
+                            }
+                        }
+                    }
+                }
+            };
+
+            let filter = {};
+            filterParserService.parse = angular.noop;
+            sinon.stub(filterParserService, 'parse').returns(filter);
+
+            let elementModel = elementParserService.parse(component, ast);
+
+            expect(elementModel.filters.length).to.equal(1);
+            let [filterModel] = elementModel.filters;
+            expect(filterModel).to.equal(filter);
+        });
+
+        it('should attempt to parse an `.element.all` selector', () => {
+            let component = {};
+            let ast = {
+                expression: {
+                    right: {
+                        arguments: [],
+                        callee: {
+                            property: {
+                                name: 'all'
+                            }
+                        }
+                    }
+                }
+            };
+
+            let filter = {};
+            filterParserService.parse = angular.noop;
+            sinon.stub(filterParserService, 'parse').returns(filter);
+
+            let elementModel = elementParserService.parse(component, ast);
+
+            expect(elementModel.filters.length).to.equal(1);
+            let [filterModel] = elementModel.filters;
+            expect(filterModel).to.equal(filter);
+        });
+
+        it('should attempt to parse a `.filter` selector', () => {
+            let component = {};
+            let ast = {
+                expression: {
+                    right: {
+                        arguments: [],
+                        callee: {
+                            property: {
+                                name: 'filter'
+                            }
+                        }
+                    }
+                }
+            };
+
+            let filter = {};
+            filterParserService.parse = angular.noop;
+            sinon.stub(filterParserService, 'parse').returns(filter);
+
+            let elementModel = elementParserService.parse(component, ast);
+
+            expect(elementModel.filters.length).to.equal(1);
+            let [filterModel] = elementModel.filters;
+            expect(filterModel).to.equal(filter);
+        });
+
+        it('should attempt to parse a `.get` selector', () => {
+            let component = {};
+            let ast = {
+                expression: {
+                    right: {
+                        arguments: [],
+                        callee: {
+                            property: {
+                                name: 'get'
+                            }
+                        }
+                    }
+                }
+            };
+
+            let filter = {};
+            filterParserService.parse = angular.noop;
+            sinon.stub(filterParserService, 'parse').returns(filter);
+
+            let elementModel = elementParserService.parse(component, ast);
+
+            expect(elementModel.filters.length).to.equal(1);
+            let [filterModel] = elementModel.filters;
+            expect(filterModel).to.equal(filter);
+        });
 
         it('should bail out and return `null` when it cannot parse', () => {
             let component = {};
@@ -293,6 +298,9 @@ describe('ElementParserService.js:', () => {
             };
 
             sinon.stub(console, 'warn');
+            astService.toJS = angular.noop;
+            sinon.stub(astService, 'toJS');
+
             let element = elementParserService.parse(component, ast);
 
             expect(element).to.equal(null);

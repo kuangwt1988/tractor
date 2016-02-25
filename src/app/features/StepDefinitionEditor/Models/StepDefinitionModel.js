@@ -2,12 +2,12 @@
 
 // Dependencies:
 import angular from 'angular';
-import ASTCreatorService from '../../../Core/Services/ASTCreatorService';
+import ASTService from '../../../Core/Services/ASTService';
 import ComponentInstanceModel from './ComponentInstanceModel';
 import MockDataInstanceModel from './MockDataInstanceModel';
 
 function createStepDefinitionModelConstructor (
-    astCreatorService,
+    astService,
     componentFileService,
     ComponentInstanceModel,
     mockDataFileService,
@@ -118,12 +118,12 @@ function createStepDefinitionModelConstructor (
         template += '};';
 
         let step = this.step.ast;
-        return astCreatorService.file(astCreatorService.expression(template, { components, mockData, step }), this.meta);
+        return astService.file(astService.expression(template, { components, mockData, step }), this.meta);
     }
 }
 
 export default angular.module('tractor.stepDefinitionModel', [
-    ASTCreatorService.name,
+    ASTService.name,
     ComponentInstanceModel.name,
     MockDataInstanceModel.name
 ])
