@@ -5,22 +5,4 @@
 var babel = require('babel-core/register')({
     ignore: /node_modules/
 });
-var tractor = require('commander');
-var log = require('npmlog');
-
-log.level = 'info';
-
-tractor
-.version('0.6.9')
-
-tractor
-.command('init')
-.description('initialise tractor in a project')
-.action(require('../server/cli/init/').default);
-
-tractor
-.command('start')
-.description('Start the tractor server')
-.action(require('../server/cli/start/').default);
-
-tractor.parse(process.argv);
+var tractor = require('../server/cli/tractor');
