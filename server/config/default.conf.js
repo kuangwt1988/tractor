@@ -10,7 +10,8 @@ export default {
     testDirectory: './e2e-tests',
     port: constants.DEFAULT_PORT,
     environments: [
-        'http://localhost:8080'
+        'http://localhost:8080',
+        'https://localhost:4200'
     ],
     beforeProtractor: _.noop,
     afterProtractor: _.noop

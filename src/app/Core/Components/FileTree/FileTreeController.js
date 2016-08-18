@@ -130,14 +130,6 @@ class FileTreeController {
         this.fileStructureService.toggleOpenDirectory(item.path);
     }
 
-    showOptions (item) {
-        item.showOptions = true;
-    }
-
-    hideOptions (item) {
-        item.showOptions = false;
-    }
-
     delete (item) {
         this.hideOptions(item);
 

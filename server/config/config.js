@@ -13,7 +13,7 @@ export function createConfig () {
     let configPath = join(process.cwd(), 'tractor.conf.js');
     let config;
     try {
-        config = require(configPath).default;
+        config = require(configPath);
     } catch (e) {
         config = {};
     }
